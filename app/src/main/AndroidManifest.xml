@@ -16,7 +16,7 @@
         <activity android:name=".JavaActivity">
         </activity>
         <activity android:name=".PeopleActivity">
-        </activity>
+         </activity>
         <activity android:name=".PersonActivity">
         </activity>
         <activity android:name=".NavigationActivity">

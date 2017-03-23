@@ -9,9 +9,9 @@ class PetDbHelper(context: Context = App.instance) : ManagedSQLiteOpenHelper(
     context,
     DB.name,
     null,
-    7) {
+    8) {
   companion object {
-    val instance: PetDbHelper by lazy { PetDbHelper() }
+    val instance by lazy { PetDbHelper() }
     }
 
   override fun onCreate(db: SQLiteDatabase) {
@@ -81,10 +81,24 @@ fun initData(db: SQLiteDatabase) {
       DB.PersonTable.lastName to "Kristjansen",
       DB.PersonTable.email to "karl@mail.dk"
       )
+  db.insert(DB.PetTable.tableName,
+      DB.PetTable.id to 100,
+      DB.PetTable.name to "Felix",
+      DB.PetTable.age to 3,
+      DB.PetTable.owner to 2)
+  db.insert(DB.PetTable.tableName,
+      DB.PetTable.id to 101,
+      DB.PetTable.name to "Misser",
+      DB.PetTable.age to 4,
+      DB.PetTable.owner to 2)
   }
 
 fun Cursor.getString(columnName: String) =
     this.getString(this.getColumnIndex(columnName))
+
+// Same as:
+// fun getString(cursor: Cursor, columnName: String) =
+//    cursor.getString(cursor.getColumnIndex(columnName))
 
 fun Cursor.getInt(columnName: String) =
     this.getInt(this.getColumnIndex(columnName))

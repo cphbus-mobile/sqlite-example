@@ -21,6 +21,13 @@
         android:textSize="30sp"
         android:layout_margin="10sp"
         />
+    <TextView
+        android:id="@+id/altitudeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_margin="10sp"
+        />
     <Button
         android:id="@+id/lastLocationButton"
         android:text="Get Last Location"

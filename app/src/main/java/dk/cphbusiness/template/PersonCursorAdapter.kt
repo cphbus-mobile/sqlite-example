@@ -19,6 +19,7 @@ class PersonCursorAdapter(context: Context, cursor: Cursor, flags: Int) :
 
   override fun bindView(view: View, context: Context, cursor: Cursor) {
     view.tag = cursor.getInt(DB.PersonTable.id)
+    // view.textFirstName.setText(cursor.getString(cursor.getColumnIndex(DB.PersonTable.firstName)))
     view.textFirstName.setText(cursor.getString(DB.PersonTable.firstName))
     view.textLastName.setText(cursor.getString(DB.PersonTable.lastName))
     view.textEmail.setText(cursor.getString(DB.PersonTable.email))

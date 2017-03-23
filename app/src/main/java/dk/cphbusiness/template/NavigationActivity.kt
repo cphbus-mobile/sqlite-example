@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_navigation.*
 import org.jetbrains.anko.locationManager
+import org.jetbrains.anko.longToast
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.toast
 
@@ -19,21 +20,32 @@ class NavigationActivity : Activity(), LocationListener {
   override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
     }
 
-  override fun onProviderEnabled(p0: String?) {
+  override fun onProviderEnabled(provider: String) {
+    longToast("$provider enabled")
     }
 
-  override fun onProviderDisabled(p0: String?) {
+  override fun onProviderDisabled(provider: String) {
+    longToast("$provider disabled")
     }
 
   override fun onLocationChanged(location: Location) {
     latitudeText.text = location.latitude.toString()
+    longitudeText.text = location.longitude.toString()
+    altitudeText.text = location.altitude.toString()
     }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_navigation)
-    ActivityCompat.requestPermissions(this, arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), 4711)
+    ActivityCompat.requestPermissions(
+        this,
+        arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION),
+        4711
+        )
     lastLocationButton.onClick {
+      // Java
+      //LocationManager locationManager = (LocationManager)Xyz(...
+
       if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
         val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
         if (location != null) {
