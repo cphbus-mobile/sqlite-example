@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="dk.cphbusiness.template.NavigationActivity">
+
+    <TextView
+        android:id="@+id/latitudeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_margin="10sp"
+        />
+    <TextView
+        android:id="@+id/longitudeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_margin="10sp"
+        />
+    <Button
+        android:id="@+id/lastLocationButton"
+        android:text="Get Last Location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:layout_gravity="center_horizontal"
+        />
+</LinearLayout>

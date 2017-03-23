@@ -1,6 +1,7 @@
 package dk.cphbusiness.template
 
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import org.jetbrains.anko.db.*
 
@@ -8,7 +9,7 @@ class PetDbHelper(context: Context = App.instance) : ManagedSQLiteOpenHelper(
     context,
     DB.name,
     null,
-    6) {
+    7) {
   companion object {
     val instance: PetDbHelper by lazy { PetDbHelper() }
     }
@@ -79,6 +80,11 @@ fun initData(db: SQLiteDatabase) {
       DB.PersonTable.firstName to "Karl",
       DB.PersonTable.lastName to "Kristjansen",
       DB.PersonTable.email to "karl@mail.dk"
-  )
+      )
   }
 
+fun Cursor.getString(columnName: String) =
+    this.getString(this.getColumnIndex(columnName))
+
+fun Cursor.getInt(columnName: String) =
+    this.getInt(this.getColumnIndex(columnName))

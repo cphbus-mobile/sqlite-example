@@ -2,7 +2,6 @@
 <LinearLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,11 +16,12 @@
     </ListView>
 
     <Button
-        android:id="@+id/dataButton"
+        android:id="@+id/addPersonButton"
         android:text="Add person"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:onClick="addPersonButtonClicked"
+        android:layout_gravity="center_horizontal"
         />
 
 </LinearLayout>

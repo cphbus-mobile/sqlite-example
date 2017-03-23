@@ -1,0 +1,60 @@
+package dk.cphbusiness.template
+
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.app.Activity
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v7.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_navigation.*
+import org.jetbrains.anko.locationManager
+import org.jetbrains.anko.onClick
+import org.jetbrains.anko.toast
+
+class NavigationActivity : Activity(), LocationListener {
+
+  override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+    }
+
+  override fun onProviderEnabled(p0: String?) {
+    }
+
+  override fun onProviderDisabled(p0: String?) {
+    }
+
+  override fun onLocationChanged(location: Location) {
+    latitudeText.text = location.latitude.toString()
+    }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_navigation)
+    ActivityCompat.requestPermissions(this, arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), 4711)
+    lastLocationButton.onClick {
+      if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (location != null) {
+          latitudeText.text = "LAT: ${location.latitude.toString()}"
+          longitudeText.text = location.longitude.toString()
+          }
+        }
+      else toast("GPS Unavailable")
+      }
+    }
+
+  override fun onStart() {
+    super.onStart()
+    locationManager.requestLocationUpdates(
+        LocationManager.GPS_PROVIDER, 0, 0f, this
+        )
+    }
+
+  override fun onStop() {
+    locationManager.removeUpdates(this)
+    super.onStop()
+    }
+
+  }
