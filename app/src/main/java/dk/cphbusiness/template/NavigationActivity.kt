@@ -1,14 +1,12 @@
 package dk.cphbusiness.template
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.Manifest.permission.*
 import android.app.Activity
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_navigation.*
 import org.jetbrains.anko.locationManager
 import org.jetbrains.anko.longToast
@@ -41,6 +39,11 @@ class NavigationActivity : Activity(), LocationListener {
         this,
         arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION),
         4711
+        )
+    ActivityCompat.requestPermissions(
+        this,
+        arrayOf(RECEIVE_SMS, READ_SMS),
+        4712
         )
     lastLocationButton.onClick {
       // Java

@@ -3,6 +3,9 @@
           package="dk.cphbusiness.template">
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:name=".App"
@@ -16,16 +19,25 @@
         <activity android:name=".JavaActivity">
         </activity>
         <activity android:name=".PeopleActivity">
-         </activity>
-        <activity android:name=".PersonActivity">
-        </activity>
-        <activity android:name=".NavigationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+         </activity>
+        <activity android:name=".PersonActivity">
         </activity>
+        <activity android:name=".NavigationActivity">
+        </activity>
+
+        <receiver
+            android:name="dk.cphbusiness.template.SmsReceiver"
+            android:exported="true" >
+            <intent-filter android:priority="0" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
