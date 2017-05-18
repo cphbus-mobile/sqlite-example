@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.onClick
+import org.jetbrains.anko.sendSMS
 import org.jetbrains.anko.toast
 
 class MainActivity : Activity() {
@@ -18,7 +19,8 @@ class MainActivity : Activity() {
         }
 
     fun showJavaClicked(view: View) {
-        startActivity(Intent(this, JavaActivity::class.java))
+        sendSMS("+4521724411", "Killroy was here")
+        // startActivity(Intent(this, JavaActivity::class.java))
         }
 
     }

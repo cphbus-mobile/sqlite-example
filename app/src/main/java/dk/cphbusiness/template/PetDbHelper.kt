@@ -3,13 +3,15 @@ package dk.cphbusiness.template
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.db.*
+import org.jetbrains.anko.info
 
-class PetDbHelper(context: Context = App.instance) : ManagedSQLiteOpenHelper(
+class PetDbHelper(context: Context = App.instance) : ManagedSQLiteOpenHelper (
     context,
     DB.name,
     null,
-    8) {
+    8), AnkoLogger {
   companion object {
     val instance by lazy { PetDbHelper() }
     }
@@ -34,6 +36,19 @@ class PetDbHelper(context: Context = App.instance) : ManagedSQLiteOpenHelper(
     db.dropTable(DB.PetTable.tableName)
     db.dropTable(DB.PersonTable.tableName)
     onCreate(db)
+    }
+
+  fun listPeople() : List<Person> {
+    var ps = listOf<Person>()
+    instance.use {
+      ps = select(DB.PersonTable.tableName).parseList(
+          rowParser {
+            id: Int, firstName: String, lastName: String, email: String ->
+            Person(id, firstName, lastName, email)
+          })
+      }
+    info("People found: ${ps.size}")
+    return ps
     }
 
   }
@@ -102,3 +117,4 @@ fun Cursor.getString(columnName: String) =
 
 fun Cursor.getInt(columnName: String) =
     this.getInt(this.getColumnIndex(columnName))
+

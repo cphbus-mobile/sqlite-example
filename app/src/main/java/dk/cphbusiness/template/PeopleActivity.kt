@@ -1,20 +1,22 @@
 package dk.cphbusiness.template
 
+import android.app.Activity
 import android.app.ListActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.ListView
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.toast
+import kotlinx.android.synthetic.main.activity_people_rec.*
+import org.jetbrains.anko.*
 
-class PeopleActivity : ListActivity(), AnkoLogger {
+class PeopleActivity : Activity(), AnkoLogger {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_people)
+    setContentView(R.layout.activity_people_rec)
+    peopleList.layoutManager = LinearLayoutManager(this)
     }
 
   override fun onResume() {
@@ -24,19 +26,24 @@ class PeopleActivity : ListActivity(), AnkoLogger {
 //        listAdapter = PersonXCursorAdapter(this@PeopleActivity, this, 0)
 //        }
 //      }
-    PetDbHelper.instance.use {
-      val cursor = rawQuery("select * from ${DB.PersonTable.tableName}", null)
-      listAdapter = PersonCursorAdapter(this@PeopleActivity, cursor, 0)
-      //cursor.close()
-      }
+    peopleList.adapter = PersonDbAdapter(PetDbHelper.instance.listPeople(), this)
     }
 
-  override fun onListItemClick(l: ListView?, v: View, position: Int, id: Long) {
-    val personId = v.tag
-    if (personId is Int)
-        startActivity(intentFor<PersonActivity>("person_id" to personId))
-    else toast("id is corrupt: ${personId}")
-    }
+
+//    override fun onListItemClick(l: ListView?, v: View, position: Int, id: Long) {
+//      val personId = v.tag
+//      if (personId is Int)
+//          startActivity(intentFor<PersonActivity>("person_id" to personId))
+//      else toast("id is corrupt: ${personId}")
+//      }
+
+    fun onListItemClick(v: View) {
+      val personId = v.tag
+      if (personId is Int)
+          startActivity(intentFor<PersonActivity>("person_id" to personId))
+      else toast("id is corrupt: ${personId}")
+      }
+
 
   fun addPersonButtonClicked(view: View) {
     info("Der blev klikket på knappen")
